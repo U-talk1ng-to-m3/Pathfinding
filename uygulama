@@ -1,0 +1,92 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class uygulama extends JPanel implements Runnable{
+    final int originalTileSize=4;
+    final int scale=3;
+
+    public int x,y=0;
+    public final int tileSize=originalTileSize * scale;
+    final int maxScreenCol=64;
+    final int maxScreenRow=48;
+    final int screenWidth=tileSize*maxScreenCol;
+    final int screenHeight=tileSize*maxScreenRow;
+    int FPS=60;
+    int row=0;
+    int col=0;
+    Map_Generator Map=new Map_Generator();
+    agac a=new agac(this);
+    Thread uyg_thread;
+
+
+
+
+    public uygulama(){
+        this.setPreferredSize(new Dimension(1920,1080));
+
+        this.setBackground(Color.black);
+        this.setDoubleBuffered(true);
+        Map.generateMap();
+
+    }
+    public void update(){
+        x+=40;
+        y+=40;
+
+
+    }
+
+
+
+
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Graphics2D g2=(Graphics2D)g;
+        for(row=0;row<Map.input_a;row++)
+        {
+            for(col=0;col<Map.input_b;col++){
+                if(Map.dizi[col][row]==0)
+                {
+                    //g2.setColor(Color.cyan);
+                    //g2.fillRect(row*20,col*20,20,20);
+                    g2.drawImage(a.agac_image,col*20,row*20,20,20,null);
+
+            }
+
+        }}
+
+        g2.setColor(Color.GREEN);
+        g2.fillRect(x,y,20,20);
+
+        g2.dispose();
+        repaint();
+        }
+
+
+
+    @Override
+    public void run() {
+        double drawInterval=1000000000/(FPS/4);
+        double delta=0;
+        long lastTime=System.nanoTime();
+        long currentTime;
+        while(uyg_thread!=null){
+            currentTime=System.nanoTime();
+            delta+=(currentTime-lastTime)/drawInterval;
+            lastTime=currentTime;
+            if(delta>=1){
+
+                update();
+
+                delta--;
+            }
+
+
+        }
+    }
+    public void start_thread(){
+        uyg_thread=new Thread(this);
+        uyg_thread.start();
+    }
+}
