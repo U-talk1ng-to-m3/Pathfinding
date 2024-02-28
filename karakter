@@ -1,0 +1,28 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+public class karakter {
+    private int id=1;
+    public int[][] location_handler;
+    uygulama ugl;
+    public BufferedImage kar_image;
+
+    public karakter(uygulama ugl) {
+
+        this.ugl=ugl;
+        get_image();
+    }
+    public void get_image(){
+        try{
+            kar_image= ImageIO.read(getClass().getResourceAsStream("/karakter.png"));
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public void en_kisa_yol(int [][] array){
+
+    }
+}
+
