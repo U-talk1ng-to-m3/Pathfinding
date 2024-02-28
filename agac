@@ -1,0 +1,22 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+public class agac {
+    uygulama ugl;
+    public BufferedImage agac_image;
+
+    public agac(uygulama ugl){
+        this.ugl=ugl;
+        get_agac_image();
+    }
+    public void get_agac_image(){
+        try{
+            agac_image= ImageIO.read(getClass().getResourceAsStream("/agac.png"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
